@@ -35,7 +35,8 @@ class Animal:
             self._health = new_health
         else:
             self._health = 0
-            Animal.alive.remove(self)
+            if self in Animal.alive:
+                Animal.alive.remove(self)
 
 
 class Herbivore(Animal):
@@ -47,5 +48,5 @@ class Carnivore(Animal):
     @staticmethod
     def bite(other: Herbivore) -> None:
         if isinstance(other, Herbivore):
-            if not other.hidden:
+            if not other.hidden and other in Animal.alive:
                 other.health -= 50
